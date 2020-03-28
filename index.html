@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>eLearning 360 Video</title>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent('play-pause', {
+            init: function() {
+                var myVideo = document.querySelector('#spaceship');
+                var myDivingVideo = document.querySelector('#diving');
+                var videoControls = document.querySelector ('#videoControls');
+                this.el.addEventListener('click', function(){
+                    if (myVideo.paused){
+                        myVideo.play();
+                        videoControls.setAttribute('src', '#pause');
+                    } else {
+                        myVideo.pause();
+                        videoControls.setAttribute('src','#play');
+                    }
+                    if (myDivingVideo.paused){
+                        myDivingVideo.play();
+                        videoControls.setAttribute('src', '#pause');
+                    } else {
+                        myDivingVideo.pause();
+                        videoControls.setAttribute('src','#play');
+                    }
+                });
+            }
+        });
+        AFRAME.registerComponent('nav', {
+            init: function() {
+                var nav = document.querySelector('#navControls');
+                var mainScene = document.querySelector('#mainScene');
+                this.el.addEventListener('click', function(){
+                    if (nav.hasAttribute('src', '#divingNav')){
+                        nav.removeAttribute('src', '#divingNav');
+                        mainScene.setAttribute('src','#diving');
+                        nav.setAttribute('src', '#homeNav');
+                    } 
+                    else {
+                        nav.removeAttribute('src', '#homeNav');
+                        mainScene.setAttribute('src','#spaceship');
+                        nav.setAttribute('src', '#divingNav');
+                    }
+                });
+            }
+        });
+        
+    </script>
+</head>
+<body>
+      <a-scene>
+        <a-assets>
+            <img id="play" src="assets/play.png">
+            <img id="pause" src="assets/pause.png">
+            <img id="divingNav" src="assets/diving-nav.png">
+            <img id="homeNav" src="assets/home-nav.png">
+            <video id="spaceship" src="assets/spaceship.mp4" autoplay loop="true"></video>
+            <video id="diving" src="assets/diving.mp4" autoplay loop="true"></video>
+        </a-assets>
+
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-videosphere id="mainScene" src="#spaceship" rotation="0 90 0"></a-videosphere>
+        <a-image id="videoControls" src="#pause" position="0 1 -2" scale="0.2 0.2 1" play-pause></a-image>
+        <a-image id="navControls" src="#divingNav" position="0 0 -3" scale="0.5 0.5 0.5" nav></a-image>
+    </a-scene>
+</body>
+</html>
