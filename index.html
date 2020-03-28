@@ -3,13 +3,14 @@
     <title>eLearning 360 Video</title>
     <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
     <script>
+        
         AFRAME.registerComponent('play-pause', {
             init: function() {
                 var myVideo = document.querySelector('#spaceship');
                 var myDivingVideo = document.querySelector('#diving');
                 var videoControls = document.querySelector ('#videoControls');
                 this.el.addEventListener('click', function(){
-                    if (myVideo.paused){
+                   if (myVideo.paused){
                         myVideo.play();
                         videoControls.setAttribute('src', '#pause');
                     } else {
@@ -26,21 +27,32 @@
                 });
             }
         });
-        AFRAME.registerComponent('nav', {
+        AFRAME.registerComponent('space-to-dive', {
             init: function() {
-                var nav = document.querySelector('#navControls');
+                var space2dive = document.querySelector('#space-to-dive');
+                var dive2space = document.querySelector('#dive-to-space');
                 var mainScene = document.querySelector('#mainScene');
                 this.el.addEventListener('click', function(){
-                    if (nav.hasAttribute('src', '#divingNav')){
-                        nav.removeAttribute('src', '#divingNav');
-                        mainScene.setAttribute('src','#diving');
-                        nav.setAttribute('src', '#homeNav');
-                    } 
-                    else {
-                        nav.removeAttribute('src', '#homeNav');
-                        mainScene.setAttribute('src','#spaceship');
-                        nav.setAttribute('src', '#divingNav');
-                    }
+                    mainScene.setAttribute('src','#diving');
+                    space2dive.setAttribute('position', '0 0 0');
+                    space2dive.setAttribute('opacity', '0');
+                    dive2space.setAttribute('position', '0 0 -3');
+                    dive2space.setAttribute('opacity', '1');
+                });
+            }
+        });
+        AFRAME.registerComponent('dive-to-space', {
+            init: function() {
+                var dive2space = document.querySelector('#dive-to-space');
+                var space2dive = document.querySelector('#space-to-dive');
+                var mainScene = document.querySelector('#mainScene');
+                this.el.addEventListener('click', function(){
+                    mainScene.setAttribute('src','#spaceship');
+                    dive2space.setAttribute('position', '0 0 0');
+                    dive2space.setAttribute('position', '0');
+                    space2dive.setAttribute('position', '0 0 -3');
+                    space2dive.setAttribute('opacity', '1');
+
                 });
             }
         });
@@ -53,7 +65,7 @@
             <img id="play" src="assets/play.png">
             <img id="pause" src="assets/pause.png">
             <img id="divingNav" src="assets/diving-nav.png">
-            <img id="homeNav" src="assets/home-nav.png">
+            <img id="spaceNav" src="assets/space-nav.png">
             <video id="spaceship" src="assets/spaceship.mp4" autoplay loop="true"></video>
             <video id="diving" src="assets/diving.mp4" autoplay loop="true"></video>
         </a-assets>
@@ -62,9 +74,10 @@
             <a-cursor></a-cursor>
         </a-camera>
 
-        <a-videosphere id="mainScene" src="#spaceship" rotation="0 90 0"></a-videosphere>
+        <a-videosphere muted id="mainScene" src="#spaceship" rotation="0 90 0"></a-videosphere>
         <a-image id="videoControls" src="#pause" position="0 1 -2" scale="0.2 0.2 1" play-pause></a-image>
-        <a-image id="navControls" src="#divingNav" position="0 0 -3" scale="0.5 0.5 0.5" nav></a-image>
+        <a-image id="space-to-dive" src="#divingNav" position="0 0 -3" opacity="1" scale="0.5 0.5 0.5" space-to-dive></a-image>
+        <a-image id="dive-to-space" src="#spaceNav" position="0 0 -3"  opacity="0" scale="0.5 0.5 0.5" dive-to-space></a-image>
     </a-scene>
 </body>
 </html>
