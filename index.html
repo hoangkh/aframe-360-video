@@ -1,9 +1,8 @@
 <html>
 <head>
-    <title>eLearning 360 Video</title>
-    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <title>e-Learning 360 Video</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script>
-        
         AFRAME.registerComponent('play-pause', {
             init: function() {
                 var myVideo = document.querySelector('#spaceship');
@@ -49,7 +48,7 @@
                 this.el.addEventListener('click', function(){
                     mainScene.setAttribute('src','#spaceship');
                     dive2space.setAttribute('position', '0 0 0');
-                    dive2space.setAttribute('position', '0');
+                    dive2space.setAttribute('opacity', '0');
                     space2dive.setAttribute('position', '0 0 -3');
                     space2dive.setAttribute('opacity', '1');
 
